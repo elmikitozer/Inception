@@ -12,9 +12,9 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
 	wp core install --url=$domain_name \
 		--title=$brand\
-		--admin_user=$wordpress_admin \
-		--admin_password=$wordpress_admin_password \
-		--admin_email=$wordpress_admin_email \
+		--admin_user=$wp_admin \
+		--admin_password=$wp_admin_pwd \
+		--admin_email=$wp_admin_email \
 		--allow-root
 
 	wp user create $login $wp_user_email\

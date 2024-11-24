@@ -30,7 +30,7 @@ RUN apt update \
 
 COPY conf/my.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-COPY mysql.sh /mysql.sh
+COPY ./tools/mysql.sh /mysql.sh
 # RUN chmod +x /mysql.sh && ./mysql.sh
 
 
