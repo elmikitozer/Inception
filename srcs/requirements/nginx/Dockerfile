@@ -41,12 +41,12 @@ COPY conf/nginx.conf /etc/nginx/nginx.conf
 # Set appropriate permissions for the NGINX root directory
 RUN chmod 755 /var/www/nginx
 
-# Check if www-data user and group exist, and create them if they don't
+# # Check if www-data user and group exist, and create them if they don't
 RUN getent group www-data || addgroup --system www-data
 RUN id -u www-data || adduser --system --ingroup www-data www-data
 
-# Change ownership of the web root and SSL directories to the www-data user and group
+# # Change ownership of the web root and SSL directories to the www-data user and group
 RUN chown -R www-data:www-data /var/www/nginx /etc/nginx/ssl
 
-# Set the default command to start NGINX
+# # Set the default command to start NGINX
 CMD ["nginx", "-g", "daemon off;"]

@@ -33,6 +33,7 @@ down:
 re: clean all
 
 clean: down
+	if [ "$(docker ps -qa)" ]; then docker stop $(docker ps -qa); fi
 	@docker stop $(docker ps -qa)
 	@docker rm $(docker ps -qa)
 	@docker rmi -f $(docker images -qa)

@@ -8,7 +8,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 		--dbname=$SQL_NAME \
 		--dbuser=$SQL_USER \
 		--dbpass=$SQL_PASSWORD \
-		--dbhost=mariadb:3306 --path='var/www/worpress'
+		--dbhost=mariadb:3306 --path='var/www/wordpress'
 
 	wp core install --url=$domain_name \
 		--title=$brand\
