@@ -1,3 +1,4 @@
+#!bin/bash
 #wait for mariadb to be up
 sleep 10
 

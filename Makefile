@@ -13,17 +13,17 @@
 
 name = inception
 
-all:
-	if [ ! -f srcs/requirements/nginx/tools/inception-nopass.key ] || [ ! -f srcs/requirements/nginx/tools/inception.crt ]; then \
-	mkcert myevou.42.fr ;\
-	mv myevou.42.fr-key.pem srcs/requirements/nginx/tools/private.key ;\
-	mv myevou.42.fr.pem srcs/requirements/nginx/tools/certificate.crt ;\
-	fi
-	@bash srcs/requirements/wordpress/tools/make_dir.sh
-	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d
+#createVolumes
+#MARIADB=/home/myevou/data/mariadb
+#WORDPRESS=/home/myevou/data/wordpress
+
+all: build up
+
+#mkdir -p $(MARIADB)
+#mkdir -p $(WORDPRESS)
+
 
 build:
-	@bash srcs/requirements/wordpress/tools/make_dir.sh
 	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
 
 down:
@@ -33,12 +33,12 @@ down:
 re: clean all
 
 clean: down
-	if [ "$(docker ps -qa)" ]; then docker stop $(docker ps -qa); fi
-	@docker stop $(docker ps -qa)
-	@docker rm $(docker ps -qa)
-	@docker rmi -f $(docker images -qa)
-	@docker volume rm $(docker volume ls -q)
-	@docker network rm $(docker network ls -q) 2>/dev/null
-	@docker system prune -a
+	@printf "Cleaning up Docker containers, images, and volumes...\n"
+	@docker stop $(docker ps -qa) || true
+	@docker rm $(docker ps -qa) || true
+	@docker rmi -f $(docker images -qa) || true
+	@docker volume rm $(docker volume ls -q) || true
+	@docker network rm $(docker network ls -q) 2>/dev/null || true
+	@docker system prune -a -f || true
 
 .PHONY	: all build down re clean

@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt update \
 	&& apt-get -y install wget
@@ -34,7 +34,9 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
 #Script for wp-cli
-COPY ./conf/auto_config.sh .
-RUN chmod +x auto_config.sh
+COPY ./tools/auto_config.sh /var/www/auto_config.sh
+RUN chmod +x /var/www/auto_config.sh
 
-ENTRYPOINT [ "bash", "auto_config.sh" ]
+EXPOSE 9000
+
+CMD ["/var/www/auto_config.sh"]
