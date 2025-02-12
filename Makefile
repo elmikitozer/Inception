@@ -13,17 +13,17 @@
 
 name = inception
 
-#createVolumes
-#MARIADB=/home/myevou/data/mariadb
-#WORDPRESS=/home/myevou/data/wordpress
+# createVolumes
+MARIADB=/home/myevou/data/mariadb
+WORDPRESS=/home/myevou/data/wordpress
 
-all: build up
+all: buildup
 
-#mkdir -p $(MARIADB)
-#mkdir -p $(WORDPRESS)
+	mkdir -p $(MARIADB)
+	mkdir -p $(WORDPRESS)
 
 
-build:
+buildup:
 	@docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env up -d --build
 
 down:
@@ -36,7 +36,7 @@ clean: down
 	@printf "Cleaning up Docker containers, images, and volumes...\n"
 	@docker stop $(docker ps -qa) || true
 	@docker rm $(docker ps -qa) || true
-	@docker rmi -f $(docker images -qa) || true
+	@docker rmi -f $(docker images -q) --force || true
 	@docker volume rm $(docker volume ls -q) || true
 	@docker network rm $(docker network ls -q) 2>/dev/null || true
 	@docker system prune -a -f || true

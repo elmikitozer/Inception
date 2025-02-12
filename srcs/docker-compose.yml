@@ -117,13 +117,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/mikayay/data/mariadb'
+      device: '/home/myevou/data/mariadb'
   wordpress_data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Users/mikayay/data/wordpress'
+      device: '/home/myevou/data/wordpress'
 
 networks:
   inception:
